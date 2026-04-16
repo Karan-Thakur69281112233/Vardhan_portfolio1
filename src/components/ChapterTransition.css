@@ -1,0 +1,252 @@
+/* ========================================
+   CHAPTER TRANSITION — Animated Checkpoint
+   ======================================== */
+
+.ct-checkpoint {
+    position: relative;
+    padding: 55px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    overflow: visible;
+}
+
+/* ═══ HORIZONTAL LINES ═══ */
+.ct-line-left,
+.ct-line-right {
+    position: absolute;
+    top: 50%;
+    height: 2px;
+    width: 35%;
+    background: linear-gradient(90deg,
+            transparent,
+            var(--ct-color));
+    opacity: 0.15;
+    transform-origin: right center;
+}
+
+.ct-line-left {
+    left: 0;
+    transform-origin: right center;
+}
+
+.ct-line-right {
+    right: 0;
+    transform-origin: left center;
+    background: linear-gradient(-90deg,
+            transparent,
+            var(--ct-color));
+}
+
+.ct-checkpoint.ct-active .ct-line-left,
+.ct-checkpoint.ct-active .ct-line-right {
+    opacity: 0.2;
+}
+
+/* ═══ CENTER ICON ═══ */
+.ct-icon-ring {
+    position: relative;
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg,
+            color-mix(in srgb, var(--ct-color) 15%, transparent),
+            color-mix(in srgb, var(--ct-color) 5%, transparent));
+    border: 2px solid color-mix(in srgb, var(--ct-color) 25%, transparent);
+    z-index: 2;
+    transition: border-color 0.4s ease, box-shadow 0.4s ease;
+}
+
+.ct-checkpoint.ct-active .ct-icon-ring {
+    border-color: color-mix(in srgb, var(--ct-color) 50%, transparent);
+    box-shadow:
+        0 0 20px color-mix(in srgb, var(--ct-color) 20%, transparent),
+        0 0 40px color-mix(in srgb, var(--ct-color) 8%, transparent);
+}
+
+.ct-icon {
+    font-size: 1.15rem;
+    color: var(--ct-color);
+    filter: drop-shadow(0 1px 3px color-mix(in srgb, var(--ct-color) 30%, transparent));
+    z-index: 1;
+}
+
+.ct-icon-glow {
+    position: absolute;
+    inset: -6px;
+    border-radius: 50%;
+    background: radial-gradient(circle,
+            color-mix(in srgb, var(--ct-color) 12%, transparent) 0%,
+            transparent 70%);
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    animation: none;
+}
+
+.ct-checkpoint.ct-active .ct-icon-glow {
+    opacity: 1;
+    animation: iconPulse 2s ease-in-out infinite;
+}
+
+@keyframes iconPulse {
+
+    0%,
+    100% {
+        transform: scale(1);
+        opacity: 0.8;
+    }
+
+    50% {
+        transform: scale(1.25);
+        opacity: 0.4;
+    }
+}
+
+/* ═══ TEXT CONTENT ═══ */
+.ct-content {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    z-index: 2;
+}
+
+.ct-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 4px 16px;
+    border-radius: 20px;
+    background: color-mix(in srgb, var(--ct-color) 8%, transparent);
+    border: 1px solid color-mix(in srgb, var(--ct-color) 15%, transparent);
+}
+
+.ct-badge-num {
+    font-family: var(--font-display);
+    font-size: 0.7rem;
+    font-weight: 900;
+    color: var(--ct-color);
+    letter-spacing: 1px;
+}
+
+.ct-badge-label {
+    font-family: var(--font-display);
+    font-size: 0.6rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2.5px;
+    color: color-mix(in srgb, var(--ct-color) 70%, var(--text-primary));
+}
+
+.ct-title {
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    font-weight: 800;
+    margin: 0;
+    line-height: 1.2;
+    letter-spacing: 0.5px;
+    color: var(--text-primary);
+    background: linear-gradient(135deg, var(--ct-color), color-mix(in srgb, var(--ct-color) 60%, #ec4899));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.ct-tagline {
+    font-family: var(--font-heading);
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    font-style: italic;
+    margin: 0;
+    opacity: 0.8;
+}
+
+/* ═══ BURST PARTICLES ═══ */
+.ct-particle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: var(--size);
+    height: var(--size);
+    border-radius: 50%;
+    background: var(--ct-color);
+    pointer-events: none;
+    transform: translate(-50%, -50%) rotate(var(--angle)) translateY(calc(-1 * var(--dist)));
+    opacity: 0;
+    z-index: 1;
+}
+
+.ct-checkpoint.ct-active .ct-particle {
+    animation: particleDrift 2.5s ease-in-out infinite;
+    animation-delay: calc(var(--angle) / 360 * 1s);
+}
+
+@keyframes particleDrift {
+    0% {
+        opacity: 0;
+        transform: translate(-50%, -50%) rotate(var(--angle)) translateY(calc(-0.5 * var(--dist)));
+    }
+
+    30% {
+        opacity: 0.5;
+    }
+
+    100% {
+        opacity: 0;
+        transform: translate(-50%, -50%) rotate(calc(var(--angle) + 30deg)) translateY(calc(-1.8 * var(--dist)));
+    }
+}
+
+/* ═══ RESPONSIVE ═══ */
+@media (max-width: 768px) {
+    .ct-checkpoint {
+        padding: 40px 15px;
+        gap: 12px;
+    }
+
+    .ct-icon-ring {
+        width: 44px;
+        height: 44px;
+    }
+
+    .ct-icon {
+        font-size: 1rem;
+    }
+
+    .ct-title {
+        font-size: 1.15rem;
+    }
+
+    .ct-line-left,
+    .ct-line-right {
+        width: 25%;
+    }
+
+    .ct-particle {
+        display: none;
+    }
+}
+
+@media (max-width: 480px) {
+    .ct-title {
+        font-size: 1rem;
+    }
+
+    .ct-badge {
+        padding: 3px 12px;
+    }
+
+    .ct-badge-num {
+        font-size: 0.6rem;
+    }
+
+    .ct-badge-label {
+        font-size: 0.55rem;
+    }
+}

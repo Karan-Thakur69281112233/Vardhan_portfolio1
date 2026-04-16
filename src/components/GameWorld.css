@@ -1,0 +1,90 @@
+/* ========================================
+   GAME WORLD — Parallax Scroll Loop
+   ======================================== */
+
+.game-world {
+    position: relative;
+    min-height: 100vh;
+    overflow: hidden;
+}
+
+/* ═══ PARALLAX SKY ═══ */
+.gw-sky {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+}
+
+.gw-sky-layer-1 {
+    position: absolute;
+    inset: -30% 0 0 0;
+    background: linear-gradient(180deg,
+            #dbeafe 0%,
+            #e0e7ff 25%,
+            #ede9fe 50%,
+            #fce7f3 75%,
+            #fff1f2 100%);
+    will-change: transform;
+}
+
+.gw-sky-layer-2 {
+    position: absolute;
+    inset: -50% 0 0 0;
+    background: radial-gradient(ellipse 80% 50% at 50% 0%,
+            rgba(99, 102, 241, 0.06) 0%,
+            transparent 70%);
+    will-change: transform;
+}
+
+/* ═══ CLOUDS ═══ */
+.gw-clouds {
+    position: fixed;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    will-change: transform;
+}
+
+.gw-cloud {
+    position: absolute;
+    color: var(--primary);
+    animation: gwCloudDrift linear infinite;
+}
+
+@keyframes gwCloudDrift {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(100px);
+    }
+}
+
+/* ═══ MOUNTAINS ═══ */
+.gw-mountains {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 200px;
+    z-index: 1;
+    pointer-events: none;
+    will-change: transform;
+}
+
+.gw-mountain {
+    position: absolute;
+    bottom: 0;
+    background: linear-gradient(180deg,
+            rgba(79, 70, 229, 0.08) 0%,
+            rgba(139, 92, 246, 0.02) 100%);
+    clip-path: polygon(0% 100%, 20% 30%, 50% 0%, 80% 25%, 100% 100%);
+}
+
+/* ═══ CONTENT ═══ */
+.gw-content {
+    position: relative;
+    z-index: 10;
+}
