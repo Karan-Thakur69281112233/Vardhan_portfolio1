@@ -78,7 +78,7 @@ const About = () => {
                         <div className="about-image-wrapper">
                             <div className="about-image">
                                 <img
-                                    src="Animatedone.png"
+                                    src="/images/animated-one.png"
                                     alt="Vardhan"
                                     className="about-photo"
                                 />

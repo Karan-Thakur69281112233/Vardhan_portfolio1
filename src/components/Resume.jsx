@@ -174,7 +174,7 @@ const Resume = () => {
                     transition={{ duration: 0.6, delay: 0.3 }}
                     viewport={{ once: true }}
                 >
-                    <a href="Resume_Vardhan.pdf" className="btn btn-primary download-btn">
+                    <a href="/Resume_Vardhan.pdf" className="btn btn-primary download-btn">
                         <FaDownload /> Download Full Resume
                         <span className="btn-glow"></span>
                     </a>
